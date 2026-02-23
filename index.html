@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Integração</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        button { padding: 10px 20px; font-size: 18px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Contador Global</h1>
+    <p>Total de cliques: <span id="valor">Carregando...</span></p>
+    <button onclick="clicar()">Clicar!</button>
+
+    <script>
+        // SUBSTITUA PELA URL QUE O RENDER TE DAR:
+        const API_URL = "https://SUA-API-AQUI.onrender.com";
+
+        // Busca o valor atual ao abrir a página
+        async function atualizarTela() {
+            const res = await fetch(`${API_URL}/contador`);
+            const dados = await res.json();
+            document.getElementById('valor').innerText = dados.total;
+        }
+
+        // Envia o clique para a API
+        async function clicar() {
+            const res = await fetch(`${API_URL}/clicar`, { method: 'POST' });
+            const dados = await res.json();
+            document.getElementById('valor').innerText = dados.total;
+        }
+
+        atualizarTela();
+    </script>
+</body>
+</html>
